@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Welcome</title>
+    <title>Admin</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -19,17 +19,12 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
-    <style>
-        .pesanerror{
-                font-size: 0.8em;
-                color: red;
-                font-weight: 700;
-                text-align: center
-            }
-    </style>
+
 </head>
 
 <body class="bg-gradient-primary">
+    <div id="wrapper">
+    @include('admin.navbar')
     @yield('content')
 
     <!-- Bootstrap core JavaScript-->
@@ -41,7 +36,7 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{asset('js/sb-admin-2.min.js')}}"></script>
-
+    </div>
 </body>
 
 </html>
