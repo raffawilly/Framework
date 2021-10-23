@@ -27,7 +27,7 @@ class User extends Controller
             return redirect()->route('admin_index');
         }
         else{
-            return redirect('/welcome/login_admin');
+            return redirect('/welcome/login_admin')->with(['failed' => 'Username atau Password salah!']);
         }
     }
 

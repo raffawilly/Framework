@@ -16,6 +16,19 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Admin Login<h1>
                             </div>
+
+                            {{-- MESSAGE AKUN TIDAK ADA --}}
+                            @if ($message = Session::get('failed'))
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <div>
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                              </div>
+                          @endif
+                            {{-- MESSAGE AKUN TIDAK ADA --}}
+
+
                             <form class="user" action="/welcome/login_admin" method="POST">
                                 @csrf
                                 <div class="form-group">
