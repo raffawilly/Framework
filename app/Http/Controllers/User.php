@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\admin;
+use App\Models\student;
 use Illuminate\Http\Request;
 
 class User extends Controller
@@ -35,5 +36,21 @@ class User extends Controller
     {
         # code...
         return view('login_student');
+    }
+    public function cek_login_student(Request $req)
+    {
+        # code...
+        $rules =[
+            'username' =>'required',
+            'password'=>'required'
+        ];
+        $this->validate($req,$rules);
+        $user = student::where('username','=',$req->username)->where('password','=',$req->password)->first();
+        if($user){
+            return redirect()->route('student_index');
+        }
+        else{
+            return redirect('/welcome/login_student')->with(['failed' => 'Username atau Password salah!']);
+        }
     }
 }

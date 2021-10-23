@@ -30,5 +30,5 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::prefix('student')->group(function () {
-    Route::get('/',[studentController::class,'index']);
+    Route::get('/',[studentController::class,'index'])->name('student_index');
 });

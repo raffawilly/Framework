@@ -51,11 +51,6 @@
                                     @enderror
                                     {{-- end pesan error --}}
                                 </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox small">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                                    </div>
-                                </div>
                                 <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
                                 <hr>
                             </form>

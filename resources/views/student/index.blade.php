@@ -1,4 +1,4 @@
-  @extends('admin.main_layout_admin')
+  @extends('student.main_layout_student')
 
   @section('content')
   <!-- Content Wrapper -->

@@ -16,26 +16,43 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Student Login</h1>
                             </div>
-                            <form class="user">
+                               {{-- MESSAGE AKUN TIDAK ADA --}}
+                            @if ($message = Session::get('failed'))
+                            <div class="alert alert-warning d-flex align-items-center" role="alert">
+                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                <div>
+                                    <strong>{{ $message }}</strong>
+                                </div>
+                              </div>
+                          @endif
+                            {{-- MESSAGE AKUN TIDAK ADA --}}
+
+                            <form class="user" action="/welcome/login_student" method="POST">
+                                @csrf
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user"
-                                        id="exampleInputEmail" aria-describedby="emailHelp"
-                                        placeholder="Enter Email Address...">
+                                    <input type="username" class="form-control form-control-user @error('username') border-danger border-3 @enderror"
+                                        id="exampleInputEmail" name= "username"
+                                        placeholder="Enter Username">
+
+                                    {{-- start pesan error --}}
+                                    @error('username')
+                                    <div class="pesanerror">{{ $message }}</div>
+                                    @enderror
+                                    {{-- end pesan error --}}
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control form-control-user"
-                                        id="exampleInputPassword" placeholder="Password">
+                                    <input type="password" class="form-control form-control-user @error('password') border-danger border-3 @enderror"
+                                        id="exampleInputPassword" placeholder="Password" name="password">
+                                    {{-- start pesan error --}}
+                                    @error('password')
+                                    <div class="pesanerror">{{ $message }}</div>
+                                    @enderror
+                                    {{-- end pesan error --}}
                                 </div>
-                                <div class="form-group">
-                                    <div class="custom-control custom-checkbox small">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck">
-                                    </div>
-                                </div>
-                                <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                    Login
-                                </a>
+                                <input type="submit" value="Login" class="btn btn-primary btn-user btn-block">
                                 <hr>
                             </form>
+
                             <hr>
                             <div class="text-center">
                                 <a class="small" href="/welcome/login_admin">Login as Admin</a>
