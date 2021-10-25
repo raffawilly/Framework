@@ -27,6 +27,17 @@ Route::prefix('welcome')->group(function () {
 
 Route::prefix('admin')->group(function () {
     Route::get('/',[adminController::class,'index'])->name('admin_index');
+    Route::prefix('/book')->group(function () {
+        Route::get('/insert',[adminController::class,'book_insert'])->name('book_insert');
+
+        Route::get('/insert_kategori',[adminController::class,'book_kategori'])->name('book_kategori');
+        Route::post('/insert_kategori',[adminController::class,'insert_kategori']);
+        Route::get('/hapus_kategori/{id}',[adminController::class,'hapus_kategori']);
+
+        Route::get('/insert_penerbit',[adminController::class,'book_penerbit'])->name('book_penerbit');
+        Route::post('/insert_penerbit',[adminController::class,'insert_penerbit']);
+        Route::get('/hapus_penerbit/{id}',[adminController::class,'hapus_penerbit']);
+    });
 });
 
 Route::prefix('student')->group(function () {
