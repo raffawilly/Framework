@@ -16,7 +16,13 @@ class adminController extends Controller
     }
     public function book_insert(Request $request)
     {
-        return view('admin.book_insert');
+        $kategori = Kategori::all();
+        $penerbit = Penerbit::all();
+        $data = [];
+        $data['penerbit'] = $penerbit;
+        $data['kategori'] = $kategori;
+
+        return view('admin.book_insert',$data);
     }
     public function book_kategori(Request $request)
     {
