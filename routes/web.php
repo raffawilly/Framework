@@ -28,7 +28,12 @@ Route::prefix('welcome')->group(function () {
 Route::prefix('admin')->group(function () {
     Route::get('/',[adminController::class,'index'])->name('admin_index');
     Route::prefix('/book')->group(function () {
-        Route::get('/insert',[adminController::class,'book_insert'])->name('book_insert');
+        Route::get('/insert',[adminController::class,'book_index'])->name('book_insert');
+        Route::post('/insert',[adminController::class,'book_insert']);
+
+        Route::get('/list',[adminController::class,'book_list'])->name('book_list');
+
+        Route::get('/hapus_buku/{id}',[adminController::class,'hapus_buku']);
 
         Route::get('/insert_kategori',[adminController::class,'book_kategori'])->name('book_kategori');
         Route::post('/insert_kategori',[adminController::class,'insert_kategori']);
