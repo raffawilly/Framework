@@ -88,6 +88,13 @@ class adminController extends Controller
         $bukus['data'] = $buku;
         return view('admin.book_list', $bukus);
     }
+    public function book_list_search(Request $req)
+    {
+        $buku = Buku::where('judul','like','%' . $req->search . '%')->get();
+        $bukus = [];
+        $bukus['data'] = $buku;
+        return view('admin.book_list', $bukus);
+    }
 
     public function hapus_buku(Request $req)
     {
@@ -109,6 +116,15 @@ class adminController extends Controller
         $data['kategori'] = $kategori;
         return view('admin.book_kategori', $data);
     }
+
+    public function search_kategori(Request $req)
+    {
+        $kategori = Kategori::where('nm_kategori','like','%' . $req->search . '%')->get();
+        $data = [];
+        $data['kategori'] = $kategori;
+        return view('admin.book_kategori', $data);
+    }
+
     public function insert_kategori(Request $req)
     {
         $req->validate(
@@ -123,9 +139,6 @@ class adminController extends Controller
         $result = Kategori::create([
             'nm_kategori' => $req->NamaKategori
         ]);
-
-
-
         if($result){
             return redirect()->route('book_kategori')->with('message', 'Insert Success');
         }else {
@@ -153,7 +166,13 @@ class adminController extends Controller
         $data['penerbit'] = $penerbit;
         return view('admin.book_penerbit', $data);
     }
-
+    public function search_penerbit(Request $req)
+    {
+        $penerbit = Penerbit::where('nm_penerbit','like','%' . $req->search . '%')->get();
+        $data = [];
+        $data['penerbit'] = $penerbit;
+        return view('admin.book_penerbit', $data);
+    }
     public function insert_penerbit(Request $req)
     {
         $req->validate(

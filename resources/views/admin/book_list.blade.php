@@ -4,9 +4,25 @@
 <div class="m-5">
   <h1>List Buku</h1>
 
+  <!-- Topbar Search -->
+  <form
+  class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="">
+  @csrf
+  <div class="input-group">
+      <input type="text" class="form-control bg-light border-0 small" placeholder="Cari Judul Buku..."
+          aria-label="Search" name="search" aria-describedby="basic-addon2">
+      <div class="input-group-append">
+          <button class="btn btn-primary" type="submit">
+              <i class="fas fa-search fa-sm"></i>
+          </button>
+      </div>
+  </div>
+  <!-- Topbar Search -->
+
+</form>
   <table class="table table-striped table-hover">
     <thead>
-        <th>No.Buku</th>
+        <th>No.</th>
         <th>Judul</th>
         <th>Kategori</th>
         <th>Penerbit</th>
