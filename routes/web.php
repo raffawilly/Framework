@@ -45,6 +45,13 @@ Route::prefix('admin')->group(function () {
         Route::post('/insert_penerbit',[adminController::class,'insert_penerbit']);
         Route::post('/search_penerbit',[adminController::class,'search_penerbit']);
         Route::get('/hapus_penerbit/{id}',[adminController::class,'hapus_penerbit']);
+
+
+
+    });
+
+    Route::prefix('siswa')-> group(function(){
+        Route::get('/insert',[adminController::class,'siswa_insert'])->name('siswa_insert');
     });
 });
 

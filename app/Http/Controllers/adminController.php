@@ -207,4 +207,9 @@ class adminController extends Controller
         }
 
     }
+    public function siswa_insert()
+    {
+
+        return view('admin.siswa_insert');
+    }
 }
