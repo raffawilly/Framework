@@ -54,7 +54,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Master Siswa:</h6>
                 <a class="collapse-item" href="{{ url('/admin/student/insert') }}">Input Siswa</a>
-                <a class="collapse-item" href="cards.html">List Siswa</a>
+                <a class="collapse-item" href="{{ url('/admin/student/list') }}">List Siswa</a>
             </div>
         </div>
     </li>

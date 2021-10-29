@@ -267,4 +267,19 @@ class adminController extends Controller
         }
 
     }
+    public function student_list(Request $req)
+    {
+        $student = student::all();
+        $students = [];
+        $students['data'] = $student;
+        return view('admin.student_list', $students);
+    }
+
+    public function student_list_search(Request $req)
+    {
+        $student = student::where('nm_student','like','%' . $req->search . '%')->get();
+        $students = [];
+        $students['data'] = $student;
+        return view('admin.student_list', $students);
+    }
 }

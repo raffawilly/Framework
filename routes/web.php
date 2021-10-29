@@ -53,6 +53,9 @@ Route::prefix('admin')->group(function () {
     Route::prefix('student')-> group(function(){
         Route::get('/insert',[adminController::class,'student_index'])->name('student_insert');
         Route::post('/insert',[adminController::class,'student_insert']);
+
+        Route::get('/list',[adminController::class,'student_list'])->name('student_list');
+        Route::post('/list',[adminController::class,'student_list_search']);
     });
 });
 
