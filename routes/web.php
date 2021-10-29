@@ -50,8 +50,9 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    Route::prefix('siswa')-> group(function(){
-        Route::get('/insert',[adminController::class,'siswa_insert'])->name('siswa_insert');
+    Route::prefix('student')-> group(function(){
+        Route::get('/insert',[adminController::class,'student_index'])->name('student_insert');
+        Route::post('/insert',[adminController::class,'student_insert']);
     });
 });
 

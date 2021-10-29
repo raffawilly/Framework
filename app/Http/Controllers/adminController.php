@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Buku;
 use App\Models\Kategori;
 use App\Models\Penerbit;
+use App\Models\student;
 use Illuminate\Http\Request;
 
 class adminController extends Controller
@@ -207,9 +208,63 @@ class adminController extends Controller
         }
 
     }
-    public function siswa_insert()
+    public function student_index()
     {
-
         return view('admin.siswa_insert');
+    }
+    public function student_insert(Request $req)
+    {
+        $req->validate(
+            [
+                'Username'    => "required",
+                'Password'    => "required",
+                'nm_student'  => "required",
+                'nisn'        => "required",
+                'kelamin'     => "required",
+                'Agama'       => "required",
+                'tempatLahir' => "required",
+                'tanggalLahir'=> "required",
+                'Alamat'      => "required",
+                'nomorTelpon' => "required",
+                'Foto'        => "required"
+            ],
+            [
+                'Username.required' => 'Harus mengisi username',
+                'Password.required' => 'Harus mengisi password',
+                'nm_student.required' => 'Harus mengisi nama siswa',
+                'nisn.required' => 'Harus mengisi Nisn',
+                'kelamin.required' => 'Harus mengisi Kelamin',
+                'Agama.required' => 'Harus mengisi Agama',
+                'tempatLahir.required' => 'Harus mengisi Tempat Lahir',
+                'tanggalLahir.required' => 'Harus mengisi Tanggal Lahir',
+                'Alamat.required' => 'Harus mengisi Alamat',
+                'nomorTelpon.required' => 'Harus mengisi Nomor Telpon',
+                'Foto.required' => 'Harus ada foto siswa'
+            ],
+        );
+            $imageName = time().'.'.$req->Foto->extension();
+
+            $req->Foto->move(public_path('img'), $imageName);
+
+            $result = student::create([
+                'username'       => $req->Username,
+                'password' => $req->Password,
+                'nm_student' => $req->nm_student,
+                'nisn' => $req->nisn,
+                'kelamin'   => $req->kelamin,
+                'agama'     => $req->Agama,
+                'tempat_lahir'      => $req->tempatLahir,
+                'tanggal_lahir'   => $req->tanggalLahir,
+                'alamat' => $req->Alamat,
+                'no_telepon' => $req->nomorTelpon,
+                'foto'      => $imageName
+            ]);
+
+        if($result){
+            return redirect()->route('student_insert')->with('message', 'Insert Success');
+        }else {
+            return redirect()->route('student_insert')->with('message', 'Insert Failed');
+        }
+
     }
 }

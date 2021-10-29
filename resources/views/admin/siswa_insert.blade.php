@@ -1,6 +1,6 @@
 @extends('admin.main_layout_admin')
 @section('content')
-    <div class="m-5">
+<div class="m-5">
     <h1>Input Siswa</h1>
     <br>
     {{-- Message --}}
@@ -16,10 +16,10 @@
     @csrf
     <div class="form-group row">
 
-      <label for="inputJudulBuku" class="col-sm-2 col-form-label">Username</label>
+      <label for="inputsiswa" class="col-sm-2 col-form-label">Username</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="text" class="form-control" name= "username" id="inputJudulBuku" placeholder="Judul Buku...">
-        @error('JudulBuku')
+        <input type="text" class="form-control" name= "Username" id="inputsiswa" placeholder="Username...">
+        @error('Username')
             <div style="color:red">
                 {{$message}}
             </div>
@@ -28,32 +28,47 @@
 
       <br><br><br>
 
-      <label for="inputJudulBuku" class="col-sm-2 col-form-label">Password</label>
+      <label for="password" class="col-sm-2 col-form-label">Password</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="text" class="form-control" name= "password" id="inputJudulBuku" placeholder="Judul Buku...">
-        @error('password')
+        <input type="password" class="form-control" name= "Password" id="password" placeholder="Password...">
+        @error('Password')
             <div style="color:red">
                 {{$message}}
             </div>
         @enderror
+      </div>
 
       <br><br><br>
-      <label for="inputJudulBuku" class="col-sm-2 col-form-label">Nisn</label>
+
+      <label for="nm_student" class="col-sm-2 col-form-label">Nama Student</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="number" class="form-control" name= "nisn" id="inputJudulBuku" placeholder="Judul Buku...">
+        <input type="text" class="form-control" name= "nm_student" id="nm_student" placeholder="Nama Siswa...">
+        @error('nm_student')
+            <div style="color:red">
+                {{$message}}
+            </div>
+        @enderror
+      </div>
+
+
+      <br><br><br>
+
+      <label for="nisn" class="col-sm-2 col-form-label">Nisn</label>
+      <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <input type="number" class="form-control" name= "nisn" id="nisn" placeholder="Nisn...">
         @error('nisn')
             <div style="color:red">
                 {{$message}}
             </div>
         @enderror
-
+      </div>
 
       <br><br><br>
 
-      <label for="inputPengarang" class="col-sm-2 col-form-label">Pengarang</label>
+      <label for="kelamin" class="col-sm-2 col-form-label">Kelamin</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="text" class="form-control" name= "Pengarang" id="inputPengarang" placeholder="Pengarang...">
-        @error('Pengarang')
+        <input type="text" class="form-control" name= "kelamin" id="kelamin" placeholder="Kelamin...">
+        @error('kelamin')
             <div style="color:red">
                     {{$message}}
             </div>
@@ -62,10 +77,10 @@
 
       <br><br><br>
 
-      <label for="inputHalaman" class="col-sm-2 col-form-label">Halaman</label>
+      <label for="Agama" class="col-sm-2 col-form-label">Agama</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="number" class="form-control" name= "Halaman" id="inputHalaman" placeholder="Halaman...">
-        @error('Halaman')
+        <input type="text" class="form-control" name= "Agama" id="Agama" placeholder="Agama...">
+        @error('Agama')
             <div style="color:red">
                 {{$message}}
             </div>
@@ -74,10 +89,10 @@
 
       <br><br><br>
 
-      <label for="inputJumlah" class="col-sm-2 col-form-label">Jumlah</label>
+      <label for="tempatLahir" class="col-sm-2 col-form-label">Tempat Lahir</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="number" class="form-control" name= "Jumlah" id="inputJumlah" placeholder="Jumlah...">
-        @error('Jumlah')
+        <input type="text" class="form-control" name= "tempatLahir" id="tempatLahir" placeholder="Tempat Lahir...">
+        @error('tempatLahir')
             <div style="color:red">
                 {{$message}}
             </div>
@@ -85,10 +100,10 @@
       </div>
 
       <br><br><br>
-      <label for="inputTahunTerbit" class="col-sm-2 col-form-label">Tahun Terbit</label>
+      <label for="tanggalLahir" class="col-sm-2 col-form-label">Tanggal Lahir</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="date" class="form-control" name= "TahunTerbit" id="inputTahunTerbit" placeholder="Tahun Terbit...">
-        @error('TahunTerbit')
+        <input type="date" class="form-control" name= "tanggalLahir" id="tanggalLahir" placeholder="Tanggal Lahir...">
+        @error('tanggalLahir')
             <div style="color:red">
                 {{$message}}
             </div>
@@ -96,18 +111,39 @@
       </div>
 
       <br><br><br>
-      <label for="inputGambar" class="col-sm-2 col-form-label">Tahun Terbit</label>
+      <label for="Alamat" class="col-sm-2 col-form-label">Alamat</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="file" class="form-control" name= "Gambar" id="inputGambar">
-        @error('Gambar')
+        <input type="text" class="form-control" name= "Alamat" id="Alamat" placeholder="Alamat...">
+        @error('Alamat')
             <div style="color:red">
                 {{$message}}
             </div>
         @enderror
       </div>
 
+      <br><br><br>
+      <label for="nomorTelpon" class="col-sm-2 col-form-label">Nomor Telpon</label>
+      <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <input type="number" class="form-control" name= "nomorTelpon" id="nomorTelpon" placeholder="Nomor Telpon...">
+        @error('nomorTelpon')
+            <div style="color:red">
+                {{$message}}
+            </div>
+        @enderror
+      </div>
+
+      <br><br><br>
+      <label for="inputFoto" class="col-sm-2 col-form-label">Foto</label>
+      <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <input type="file" class="form-control" name= "Foto" id="inputFoto">
+        @error('Foto')
+            <div style="color:red">
+                {{$message}}
+            </div>
+        @enderror
+      </div>
     </div>
-    <input type="submit" value="Submit Buku" class="btn btn-primary btn-md">
+    <input type="submit" value="Submit" class="btn btn-primary btn-md">
   </form>
 </div>
 @endsection
