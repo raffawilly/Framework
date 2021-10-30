@@ -34,6 +34,7 @@
         <th>Alamat</th>
         <th>No. Telepon</th>
         <th>Foto Diri</th>
+        <th>Action</th>
     </thead>
     <tbody>
         @foreach ($data as $student)
@@ -50,8 +51,13 @@
                 <td>{{$student->alamat}}</td>
                 <td>{{$student->no_telepon}}</td>
                 <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img/'.$student->gambar) }}" alt=""></td>
-                <td><a href="{{ url("admin/book/hapus_buku/$student->kd_buku") }}" class="btn btn-danger">Hapus</a></td>
-
+                <td>
+                    @if ($student->trashed())
+                        <a href="{{ url("admin/student/hapus_buku/$student->kd_student") }}" class="btn btn-success">Recover</a></td>
+                    @else
+                        <a href="{{ url("admin/student/hapus_buku/$student->kd_student") }}" class="btn btn-danger">Hapus</a></td>
+                    @endif
+                </td>
             </tr>
         @endforeach
     </tbody>

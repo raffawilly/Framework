@@ -31,6 +31,7 @@
         <th>Jumlah</th>
         <th>Tahun Terbit</th>
         <th>Foto Sampul</th>
+        <th>Action</th>
     </thead>
     <tbody>
         @foreach ($data as $buku)

@@ -107,7 +107,6 @@ class adminController extends Controller
         }else {
             return redirect()->route('book_list')->with('message', 'Delete Failed');
         }
-
     }
 
     public function book_kategori(Request $req)
@@ -265,11 +264,31 @@ class adminController extends Controller
         }else {
             return redirect()->route('student_insert')->with('message', 'Insert Failed');
         }
+    }
+
+    public function hapus_student(Request $req)
+    {
+        $student = student::withTrashed()->find($req->id); // dapatkan buku ke 99
+        // dd($book);
+        if($student->trashed()){
+            // apakah buku ini sudah pernah disoft delete?
+            // jika ya, maka recover
+            $result = $student->restore();
+        }else{
+            $result = $student->delete();
+        }
+
+        if($result){
+            return redirect()->route('student_list')->with('message', 'Delete Success');
+        }else {
+            return redirect()->route('student_list')->with('message', 'Delete Failed');
+        }
 
     }
+
     public function student_list(Request $req)
     {
-        $student = student::all();
+        $student = student::withTrashed()->get();
         $students = [];
         $students['data'] = $student;
         return view('admin.student_list', $students);
@@ -277,7 +296,7 @@ class adminController extends Controller
 
     public function student_list_search(Request $req)
     {
-        $student = student::where('nm_student','like','%' . $req->search . '%')->get();
+        $student = student::withTrashed()->where('nm_student','like','%' . $req->search . '%')->get();
         $students = [];
         $students['data'] = $student;
         return view('admin.student_list', $students);

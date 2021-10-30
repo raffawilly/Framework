@@ -56,6 +56,8 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/list',[adminController::class,'student_list'])->name('student_list');
         Route::post('/list',[adminController::class,'student_list_search']);
+
+        Route::get('/hapus_buku/{id}',[adminController::class,'hapus_student']);
     });
 });
 
