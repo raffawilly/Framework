@@ -36,6 +36,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/hapus_buku/{id}',[adminController::class,'hapus_buku']);
 
+        Route::get('/ubah_buku/{id}',[adminController::class,'ubah_buku']);
+        Route::Post('/ubah_buku/{id}',[adminController::class,'do_ubah_buku']);
+
         Route::get('/insert_kategori',[adminController::class,'book_kategori'])->name('book_kategori');
         Route::post('/insert_kategori',[adminController::class,'insert_kategori']);
         Route::post('/search_kategori',[adminController::class,'search_kategori']);

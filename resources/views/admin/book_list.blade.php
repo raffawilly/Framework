@@ -3,7 +3,15 @@
 @section('content')
 <div class="m-5">
   <h1>List Buku</h1>
-
+{{-- Message --}}
+@if ($message = Session::get('message'))
+<div class="alert alert-primary d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+    <div>
+        <strong>{{ $message }}</strong>
+    </div>
+  </div>
+@endif
   <!-- Topbar Search -->
   <form
   class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="">
@@ -44,8 +52,12 @@
                 <td>{{$buku->halaman}}</td>
                 <td>{{$buku->jumlah}}</td>
                 <td>{{$buku->th_terbit}}</td>
-                <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img/'.$buku->gambar) }}" alt=""></td>
-                <td><a href="{{ url("admin/book/hapus_buku/$buku->kd_buku") }}" class="btn btn-danger">Hapus</a></td>
+                <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img_buku/'.$buku->gambar) }}" alt=""></td>
+                <td>
+
+                    <a href="{{ url("admin/book/ubah_buku/$buku->kd_buku") }}" class="btn btn-warning">Ubah</a>
+                    <a href="{{ url("admin/book/hapus_buku/$buku->kd_buku") }}" class="btn btn-danger">Hapus</a>
+                </td>
 
             </tr>
         @endforeach

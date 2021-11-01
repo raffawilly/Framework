@@ -6,7 +6,10 @@ use App\Models\Buku;
 use App\Models\Kategori;
 use App\Models\Penerbit;
 use App\Models\student;
+use Facade\FlareClient\Stacktrace\File;
+use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class adminController extends Controller
 {
@@ -14,7 +17,17 @@ class adminController extends Controller
     public function index()
     {
         # code...
-        return view('admin.index');
+        //total untuk dashboard admin
+        $totalSiswa = student::all()->count();
+        $totalKategori = Kategori::all()->count();
+        $totalPenerbit = Penerbit::all()->count();
+        $totalBuku = Buku::all()->count();
+        $data = [];
+        $data['totalSiswa']=$totalSiswa;
+        $data['totalBuku']=$totalBuku;
+        $data['totalPenerbit']=$totalPenerbit;
+        $data['totalKategori']=$totalKategori;
+        return view('admin.index',$data);
     }
     public function book_index(Request $req)
     {
@@ -56,7 +69,7 @@ class adminController extends Controller
         if ($buku == null) {
             $imageName = time().'.'.$req->Gambar->extension();
 
-            $req->Gambar->move(public_path('img'), $imageName);
+            $req->Gambar->move(public_path('img_buku'), $imageName);
 
             $result = Buku::create([
                 'judul'       => $req->JudulBuku,
@@ -96,7 +109,34 @@ class adminController extends Controller
         $bukus['data'] = $buku;
         return view('admin.book_list', $bukus);
     }
-
+    public function ubah_buku(Request $req)
+    {
+        $buku = Buku::find($req->id)->first();
+        $kategori = Kategori::all();
+        $penerbit = Penerbit::all();
+        $data = [];
+        $data['penerbit'] = $penerbit;
+        $data['kategori'] = $kategori;
+        $data['buku']=$buku;
+        return view('admin.book_update', $data);
+    }
+    public function do_ubah_buku(Request $req)
+    {
+     $book = Buku::find($req->id); // dapatkan buku ke 99
+        $book->judul = $req->JudulBuku;
+        $book->kd_kategori = $req->Kategori;
+        $book->kd_penerbit = $req->Penerbit;
+        $book->pengarang = $req->Pengarang;
+        $book->halaman = $req->Halaman;
+        $book->jumlah = $req->Jumlah;
+        $book->th_terbit = $req->TahunTerbit;
+        $result = $book->save(); // untuk ngesave ke database
+        if($result){
+            return redirect()->route('book_list')->with('message', 'Update Success');
+        }else {
+            return redirect()->route('book_list')->with('message', 'Update Failed');
+        }
+    }
     public function hapus_buku(Request $req)
     {
         $buku = Buku::find($req->id);
@@ -243,7 +283,7 @@ class adminController extends Controller
         );
             $imageName = time().'.'.$req->Foto->extension();
 
-            $req->Foto->move(public_path('img'), $imageName);
+            $req->Foto->move(public_path('img_student'), $imageName);
 
             $result = student::create([
                 'username'       => $req->Username,

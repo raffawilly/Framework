@@ -50,7 +50,7 @@
                 <td>{{$student->tanggal_lahir}}</td>
                 <td>{{$student->alamat}}</td>
                 <td>{{$student->no_telepon}}</td>
-                <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img/'.$student->gambar) }}" alt=""></td>
+                <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img_student/'.$student->foto) }}" alt=""></td>
                 <td>
                     @if ($student->trashed())
                         <a href="{{ url("admin/student/hapus_buku/$student->kd_student") }}" class="btn btn-success">Recover</a></td>
