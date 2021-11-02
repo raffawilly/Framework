@@ -111,7 +111,7 @@ class adminController extends Controller
     }
     public function ubah_buku(Request $req)
     {
-        $buku = Buku::find($req->id)->first();
+        $buku = Buku::find($req->id);
         $kategori = Kategori::all();
         $penerbit = Penerbit::all();
         $data = [];
@@ -340,5 +340,54 @@ class adminController extends Controller
         $students = [];
         $students['data'] = $student;
         return view('admin.student_list', $students);
+    }
+
+    public function ubah_student(Request $req)
+    {
+        $student = student::find($req->kd_student);
+        $data = [];
+        $data['student']=$student;
+        return view('admin.student_update', $data);
+    }
+    public function do_ubah_student(Request $req)
+    {
+     $student = student::find($req->kd_student); // dapatkan buku ke 99
+        $student->username = $req->Username;
+        $student->password = $req->Password;
+        $student->nm_student = $req->nm_student;
+        $student->nisn = $req->nisn;
+        $student->kelamin = $req->kelamin;
+        $student->agama = $req->Agama;
+        $student->tempat_lahir = $req->tempatLahir;
+        $student->tanggal_lahir = $req->tanggalLahir;
+        $student->alamat = $req->Alamat;
+        $student->no_telepon = $req->nomorTelpon;
+        $result = $student->save(); // untuk ngesave ke database
+        if($result){
+            return redirect()->route('student_list')->with('message', 'Update Success');
+        }else {
+            return redirect()->route('student_list')->with('message', 'Update Failed');
+        }
+    }
+
+    //PEMINJAMAN//
+    public function peminjaman_index()
+    {
+        return view("admin.peminjaman");
+    }
+
+    public function peminjaman_list()
+    {
+        return view("admin.peminjaman_list");
+    }
+
+    public function pengembalian_index()
+    {
+        return view("admin.pengembalian");
+    }
+
+    public function pengembalian_list()
+    {
+        return view("admin.pengembalian_list");
     }
 }

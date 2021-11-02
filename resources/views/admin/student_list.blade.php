@@ -52,10 +52,11 @@
                 <td>{{$student->no_telepon}}</td>
                 <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img_student/'.$student->foto) }}" alt=""></td>
                 <td>
+                    <a href="{{ url("admin/student/ubah_student/$student->kd_student") }}" class="btn btn-warning">Ubah</a>
                     @if ($student->trashed())
-                        <a href="{{ url("admin/student/hapus_buku/$student->kd_student") }}" class="btn btn-success">Recover</a></td>
+                        <a href="{{ url("admin/student/hapus_student/$student->kd_student") }}" class="btn btn-success">Recover</a></td>
                     @else
-                        <a href="{{ url("admin/student/hapus_buku/$student->kd_student") }}" class="btn btn-danger">Hapus</a></td>
+                        <a href="{{ url("admin/student/hapus_student/$student->kd_student") }}" class="btn btn-danger">Hapus</a></td>
                     @endif
                 </td>
             </tr>

@@ -60,8 +60,18 @@ Route::prefix('admin')->group(function () {
         Route::get('/list',[adminController::class,'student_list'])->name('student_list');
         Route::post('/list',[adminController::class,'student_list_search']);
 
-        Route::get('/hapus_buku/{id}',[adminController::class,'hapus_student']);
+        Route::get('/hapus_student/{id}',[adminController::class,'hapus_student']);
+
+        Route::get('/ubah_student/{kd_student}',[adminController::class,'ubah_student']);
+        Route::Post('/ubah_student/{kd_student}',[adminController::class,'do_ubah_student']);
+
+
     });
+
+    Route::get('/peminjaman',[adminController::class,'peminjaman_index'])->name('peminjaman_list');
+    Route::get('/peminjaman/list',[adminController::class,'peminjaman_list']);
+    Route::get('/pengembalian',[adminController::class,'pengembalian_index'])->name('pengembalian_list');
+    Route::get('/pengembalian/list',[adminController::class,'pengembalian_list']);
 });
 
 Route::prefix('student')->group(function () {

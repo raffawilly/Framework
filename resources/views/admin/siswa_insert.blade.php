@@ -53,7 +53,7 @@
 
       <br><br><br>
 
-      <label for="nisn" class="col-sm-2 col-form-label">Nisn</label>
+      <label for="nisn" class="col-sm-2 col-form-label">NISN</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <input type="number" class="form-control" name= "nisn" id="nisn" placeholder="Nisn...">
         @error('nisn')
