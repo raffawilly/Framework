@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Buku;
 use App\Models\Kategori;
+use App\Models\Peminjaman;
+use App\Models\Peminjaman_item;
 use App\Models\Penerbit;
 use App\Models\student;
 use Facade\FlareClient\Stacktrace\File;
@@ -373,12 +375,94 @@ class adminController extends Controller
     //PEMINJAMAN//
     public function peminjaman_index()
     {
-        return view("admin.peminjaman");
+        $student = student::all();
+        $buku = Buku::all();
+        $data = [];
+        $data['student'] = $student;
+        $data['buku'] = $buku;
+        return view("admin.peminjaman", $data);
+    }
+
+    public function peminjaman_post(Request $req)
+    {
+        $req->validate(
+            [
+                'tgl_peminjaman'=> "required",
+                'kd_student'    => "required",
+                'keterangan'    => "required",
+                'lamaPinjam'    => "required",
+                'status'        => "required",
+                'kodeBuku'      => "required"
+            ],
+            [
+                'tgl_peminjaman.required' => 'Harus mengisi Tanggal Peminjaman',
+                'kd_student.required' => 'Harus memilih nama siswa',
+                'keterangan.required' => 'Harus mengisi keterangan',
+                'lamaPinjam.required' => 'Harus mengisi lama pinjam',
+                'status.required' => 'Harus memilih status',
+                'kodeBuku.required' => 'Harus memilih buku'
+            ],
+        );
+
+        $result = Peminjaman::create([
+            'tgl_pinjam'       => $req->tgl_peminjaman,
+            'kd_student' => $req->kd_student,
+            'keterangan' => $req->keterangan,
+            'lama_pinjam' => $req->lamaPinjam,
+            'status'   => $req->status,
+            'kd_user'     => '1',
+            'kd_buku'  => $req->kodeBuku
+        ]);
+
+        $CariKdPinjam = Peminjaman::max('no_pinjam');
+
+        $result2 = Peminjaman_item::create([
+            'no_pinjam'  => $CariKdPinjam,
+            'kd_buku' => $req->kodeBuku,
+            'jumlah' => '1'
+        ]);
+        if($result && $result2 ){
+            return redirect()->route('peminjaman_index')->with('message', 'Insert Success');
+        }else {
+            return redirect()->route('peminjaman_index')->with('message', 'Insert Failed');
+        }
     }
 
     public function peminjaman_list()
     {
-        return view("admin.peminjaman_list");
+        $peminjaman = Peminjaman::all();
+        $peminjamans = [];
+        $peminjamans['data'] = $peminjaman;
+        return view("admin.peminjaman_list",$peminjamans);
+    }
+
+    public function ubah_peminjaman(Request $req)
+    {
+        $peminjaman = Peminjaman::find($req->id);
+        $student = student::all();
+        $buku = Buku::all();
+        $data = [];
+        $data['student'] = $student;
+        $data['buku'] = $buku; //STUCK SINI
+        return view("admin.peminjaman_update", $data);
+    }
+
+    public function do_ubah_peminjaman(Request $req)
+    {
+     $book = Buku::find($req->id); // dapatkan buku ke 99
+        $book->judul = $req->JudulBuku;
+        $book->kd_kategori = $req->Kategori;
+        $book->kd_penerbit = $req->Penerbit;
+        $book->pengarang = $req->Pengarang;
+        $book->halaman = $req->Halaman;
+        $book->jumlah = $req->Jumlah;
+        $book->th_terbit = $req->TahunTerbit;
+        $result = $book->save(); // untuk ngesave ke database
+        if($result){
+            return redirect()->route('book_list')->with('message', 'Update Success');
+        }else {
+            return redirect()->route('book_list')->with('message', 'Update Failed');
+        }
     }
 
     public function pengembalian_index()
