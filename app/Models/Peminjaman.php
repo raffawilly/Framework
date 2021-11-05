@@ -20,7 +20,7 @@ class Peminjaman extends Model
         'keterangan',
         'lama_pinjam',
         'status',
-        'kd_user',
+        'kd_admin',
         'kd_buku'
     ];
 

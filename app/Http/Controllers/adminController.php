@@ -410,7 +410,7 @@ class adminController extends Controller
             'keterangan' => $req->keterangan,
             'lama_pinjam' => $req->lamaPinjam,
             'status'   => $req->status,
-            'kd_user'     => '1',
+            'kd_admin'     => '1',
             'kd_buku'  => $req->kodeBuku
         ]);
 
@@ -443,25 +443,25 @@ class adminController extends Controller
         $buku = Buku::all();
         $data = [];
         $data['student'] = $student;
-        $data['buku'] = $buku; //STUCK SINI
+        $data['buku'] = $buku;
+        $data['peminjaman'] = $peminjaman;
         return view("admin.peminjaman_update", $data);
     }
 
     public function do_ubah_peminjaman(Request $req)
     {
-     $book = Buku::find($req->id); // dapatkan buku ke 99
-        $book->judul = $req->JudulBuku;
-        $book->kd_kategori = $req->Kategori;
-        $book->kd_penerbit = $req->Penerbit;
-        $book->pengarang = $req->Pengarang;
-        $book->halaman = $req->Halaman;
-        $book->jumlah = $req->Jumlah;
-        $book->th_terbit = $req->TahunTerbit;
-        $result = $book->save(); // untuk ngesave ke database
+     $peminjaman = Peminjaman::find($req->id); // dapatkan id dari url untuk mencari no_pinjam
+        $peminjaman->tgl_pinjam = $req->tgl_peminjaman;
+        $peminjaman->kd_student = $req->kd_student;
+        $peminjaman->keterangan = $req->keterangan;
+        $peminjaman->lama_pinjam = $req->lamaPinjam;
+        $peminjaman->status = $req->status;
+        $peminjaman->kd_buku = $req->kodeBuku;
+        $result = $peminjaman->save(); // untuk ngesave ke database
         if($result){
-            return redirect()->route('book_list')->with('message', 'Update Success');
+            return redirect()->route('peminjaman_list')->with('message', 'Update Success');
         }else {
-            return redirect()->route('book_list')->with('message', 'Update Failed');
+            return redirect()->route('peminjaman_list')->with('message', 'Update Failed');
         }
     }
 

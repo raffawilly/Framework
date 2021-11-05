@@ -16,10 +16,10 @@
 <form action="" method="POST" enctype="multipart/form-data" >
     @csrf
     <div class="form-group row">
-    <input type="hidden" name="id" value="{{$buku->kd_buku}}">
+    <input type="hidden" name="id" value="{{$peminjaman->no_pinjam}}">
       <label for="tgl_peminjaman" class="col-sm-2 col-form-label">Tanggal Peminjaman</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="date" class="form-control" name= "tgl_peminjaman" id="tgl_peminjaman" placeholder="Tanggal peminjaman">
+        <input type="date" class="form-control" name= "tgl_peminjaman" id="tgl_peminjaman" value="{{$peminjaman->tgl_pinjam}}" placeholder="Tanggal peminjaman">
         @error('tgl_peminjaman')
             <div style="color:red">
                 {{$message}}
@@ -33,7 +33,10 @@
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "kd_student" id="inputKdStudent" aria-label="Default select example">
             @foreach ($student as $std)
-                <option value="{{ $std->kd_student }}">{{ $std->nm_student }}</option>
+                <option value="{{ $std->kd_student }}"
+                    @if ($std->kd_student == $peminjaman->Students->kd_student)
+                        selected
+                    @endif>{{ $std->nm_student }}</option>
             @endforeach
         </select>
         @error('kd_student')
@@ -47,7 +50,7 @@
 
       <label for="keterangan" class="col-sm-2 col-form-label">Keterangan</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="text" class="form-control" name= "keterangan" id="Keterangan" placeholder="Keterangan">
+        <input type="text" class="form-control" name= "keterangan" id="Keterangan" value="{{$peminjaman->keterangan}}" placeholder="Keterangan">
         @error('keterangan')
             <div style="color:red">
                 {{$message}}
@@ -59,7 +62,7 @@
 
       <label for="Lama pinjam" class="col-sm-2 col-form-label">Lama pinjam</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="number" class="form-control" name= "lamaPinjam" id="Lama pinjam" placeholder="Lama pinjam(hari)">
+        <input type="number" class="form-control" name= "lamaPinjam" id="Lama pinjam" value="{{$peminjaman->lama_pinjam}}" placeholder="Lama pinjam(hari)">
         @error('Lama pinjam')
             <div style="color:red">
                     {{$message}}
@@ -72,8 +75,14 @@
       <label for="status" class="col-sm-2 col-form-label">Status</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "status" id="status" aria-label="Default select example">
-                <option value="0">Pinjam</option>
-                <option value="1">Denda</option>
+            @if ($peminjaman->status == 0)
+                <option value="0"  selected>Pinjam</option>
+                <option value="1" >Denda</option>
+            @else
+                <option value="0" >Pinjam</option>
+                <option value="1" selected>Denda</option>
+            @endif
+
         </select>
         @error('status')
             <div style="color:red">
@@ -87,7 +96,10 @@
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "kodeBuku" id="inputKdStudent" aria-label="Default select example">
             @foreach ($buku as $b)
-                <option value="{{ $b->kd_buku }}">{{ $b->judul }}</option>
+                <option value="{{ $b->kd_buku }}"
+                    @if ($b->kd_buku == $peminjaman->Bukus->kd_buku)
+                        selected
+                    @endif>{{ $b->judul }}</option>
             @endforeach
         </select>
         @error('kodeBuku')

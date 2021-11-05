@@ -71,7 +71,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/peminjaman',[adminController::class,'peminjaman_index'])->name('peminjaman_index');
     Route::post('/peminjaman',[adminController::class,'peminjaman_post']);
 
-    Route::get('/peminjaman/list',[adminController::class,'peminjaman_list']);
+    Route::get('/peminjaman/list',[adminController::class,'peminjaman_list'])->name('peminjaman_list');
     Route::get('/ubah_peminjaman/{id}',[adminController::class,'ubah_peminjaman']);
     Route::Post('/ubah_peminjaman/{id}',[adminController::class,'do_ubah_peminjaman']);
 
