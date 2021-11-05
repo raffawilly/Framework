@@ -15,6 +15,7 @@ class Peminjaman_item extends Model
     public $timestamps    = false;
 
     protected $fillable =[
+        'kd_student',
         'no_pinjam',
         'kd_buku',
         'jumlah'

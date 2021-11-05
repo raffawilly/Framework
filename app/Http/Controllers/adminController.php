@@ -417,6 +417,7 @@ class adminController extends Controller
         $CariKdPinjam = Peminjaman::max('no_pinjam');
 
         $result2 = Peminjaman_item::create([
+            'kd_student' => $req->kd_student,
             'no_pinjam'  => $CariKdPinjam,
             'kd_buku' => $req->kodeBuku,
             'jumlah' => '1'
@@ -467,7 +468,14 @@ class adminController extends Controller
 
     public function pengembalian_index()
     {
-        return view("admin.pengembalian");
+        $student = student::all();
+        $buku = Buku::all();
+        $pinjam = Peminjaman_item::all();
+        $data = [];
+        $data['student'] = $student;
+        $data['buku'] = $buku;
+        $data['pinjam'] = $pinjam;
+        return view("admin.pengembalian", $data);
     }
 
     public function pengembalian_list()

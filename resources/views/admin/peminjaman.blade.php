@@ -83,7 +83,7 @@
       </div>
 
       <br><br><br>
-      <label for="kodeBuku" class="col-sm-2 col-form-label">Kode Buku</label>
+      <label for="kodeBuku" class="col-sm-2 col-form-label">Judul Buku</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "kodeBuku" id="inputKdStudent" aria-label="Default select example">
             @foreach ($buku as $b)

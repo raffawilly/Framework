@@ -60,7 +60,7 @@
 
       <br><br><br>
 
-      <label for="Lama pinjam" class="col-sm-2 col-form-label">Lama pinjam</label>
+      <label for="Lama pinjam" class="col-sm-2 col-form-label">Lama Pinjam</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <input type="number" class="form-control" name= "lamaPinjam" id="Lama pinjam" value="{{$peminjaman->lama_pinjam}}" placeholder="Lama pinjam(hari)">
         @error('Lama pinjam')
@@ -92,7 +92,7 @@
       </div>
 
       <br><br><br>
-      <label for="kodeBuku" class="col-sm-2 col-form-label">Kode Buku</label>
+      <label for="kodeBuku" class="col-sm-2 col-form-label">Judul Buku</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "kodeBuku" id="inputKdStudent" aria-label="Default select example">
             @foreach ($buku as $b)
