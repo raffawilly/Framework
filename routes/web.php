@@ -76,7 +76,12 @@ Route::prefix('admin')->group(function () {
     Route::Post('/ubah_peminjaman/{id}',[adminController::class,'do_ubah_peminjaman']);
 
     Route::get('/pengembalian',[adminController::class,'pengembalian_index'])->name('pengembalian_index');
+    Route::post('/pengembalian',[adminController::class,'pengembalian_post']);
+
     Route::get('/pengembalian/list',[adminController::class,'pengembalian_list']);
+    Route::get('/ubah_pengembalian/{id}',[adminController::class,'ubah_pengembalian']);
+    Route::Post('/ubah_pengembalian/{id}',[adminController::class,'do_ubah_pengembalian']);
+
 });
 
 Route::prefix('student')->group(function () {

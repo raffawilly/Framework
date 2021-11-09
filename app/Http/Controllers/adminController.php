@@ -7,6 +7,7 @@ use App\Models\Kategori;
 use App\Models\Peminjaman;
 use App\Models\Peminjaman_item;
 use App\Models\Penerbit;
+use App\Models\Pengembalian;
 use App\Models\student;
 use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\File as HttpFile;
@@ -466,20 +467,90 @@ class adminController extends Controller
         }
     }
 
-    public function pengembalian_index()
+    public function ubah_pengembalian(Request $req)
     {
+        $pengembalian = Pengembalian::find($req->id);
         $student = student::all();
         $buku = Buku::all();
-        $pinjam = Peminjaman_item::all();
         $data = [];
         $data['student'] = $student;
         $data['buku'] = $buku;
+        $data['pengembalian'] = $pengembalian;
+        return view("admin.pengembalian_update", $data);
+    }
+
+    public function do_ubah_pengembalian(Request $req)
+    {
+     $pengembalian = Pengembalian::find($req->id); // dapatkan id dari url untuk mencari no_pinjam
+        $pengembalian->no_pinjam = $req->no_pinjam;
+        $pengembalian->tgl_kembali = $req->tgl_pengembalian;
+        $pengembalian->denda = $req->denda;
+        $pengembalian->kd_student = $req->kd_student;
+        $pengembalian->kd_admin = $req->kd_admin;
+        $pengembalian->kd_buku = $req->kodeBuku;
+        $result = $pengembalian->save(); // untuk ngesave ke database
+        if($result){
+            return redirect()->route('pengembalian_list')->with('message', 'Update Success');
+        }else {
+            return redirect()->route('pengembalian_list')->with('message', 'Update Failed');
+        }
+    }
+
+    public function pengembalian_index(Request $req)
+    {
+
+        $pinjam = Peminjaman::all();
+        $data = [];
         $data['pinjam'] = $pinjam;
+
         return view("admin.pengembalian", $data);
+
+    }
+
+    public function pengembalian_post(Request $req)
+    {
+        $req->validate(
+            [
+                'no_pinjam'=> "required",
+                'tgl_pengembalian'    => "required",
+                'kd_student'    => "required",
+                'denda'    => "required",
+                'kodeBuku'        => "required"
+            ],
+            [
+                'no_pinjam.required' => 'Harus mengisi Nomer Peminjaman',
+                'tgl_pengembalian.required' => 'Harus memilih Tanggal Pengembalian',
+                'kd_student.required' => 'Harus mengisi Kode Siswa',
+                'denda.required' => 'Harus mengisi Denda',
+                'kodeBuku.required' => 'Harus mengisi kode Buku'
+            ],
+        );
+
+        $result = Pengembalian::create([
+            'no_pinjam'       => $req->no_pinjam,
+            'tgl_kembali' => $req->tgl_pengembalian,
+            'denda' => $req->denda,
+            'kd_student' => $req ->kd_student,
+            'kd_admin'     => '1',
+            'kd_buku'  => $req->kodeBuku
+        ]);
+
+        $CariKdKembali = Pengembalian::max('no_pinjam');
+
+        if($result ){
+            return redirect()->route('pengembalian_index')->with('message', 'Insert Success');
+        }else {
+            return redirect()->route('pengembalian_index')->with('message', 'Insert Failed');
+        }
     }
 
     public function pengembalian_list()
     {
-        return view("admin.pengembalian_list");
+        $pengembalian = Pengembalian::all();
+        $pengembalians = [];
+        $pengembalians['data'] = $pengembalian;
+        return view("admin.pengembalian_list",$pengembalians);
     }
+
+
 }

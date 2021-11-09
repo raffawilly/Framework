@@ -19,7 +19,7 @@
 
         <label for="no_pinjam" class="col-sm-2 col-form-label">No. Pinjam</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="text" class="form-control" name= "no_pinjam" id="no_pinjam" placeholder="No. Pinjam">
+        <input type="text" class="form-control" value= "{{$pengembalian->no_pinjam}}" name= "no_pinjam" id="no_pinjam" placeholder="No. Pinjam">
         @error('no_pinjam')
             <div style="color:red">
                 {{$message}}
@@ -31,7 +31,7 @@
 
       <label for="tgl_pengembalian" class="col-sm-2 col-form-label">Tanggal Pengembalian</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="date" class="form-control" name= "tgl_pengembalian" id="tgl_pengembalian" placeholder="Tanggal Pengembalian">
+        <input type="date" class="form-control" value= "{{$pengembalian->tgl_kembali}}" name= "tgl_pengembalian" id="tgl_pengembalian" placeholder="Tanggal Pengembalian">
         @error('tgl_pengembalian')
             <div style="color:red">
                 {{$message}}
@@ -45,9 +45,10 @@
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "kd_student" id="inputKdStudent" onchange="selectValue()" aria-label="Default select example">
 
-                @foreach ($pinjam as $pnj)
-                    <option value="{{ $pnj->kd_student }}">{{ $pnj->Students->nm_student }}</option>
-
+                @foreach ($student as $pnj)
+                <option value="{{ $pnj->kd_student }}">
+                    {{ $pnj->nm_student }}
+                </option>
                 @endforeach
 
 
@@ -68,7 +69,7 @@
 
       <label for="denda" class="col-sm-2 col-form-label">Denda</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="number" class="form-control" name= "denda" id="denda" placeholder="Denda (Rp)">
+        <input type="number" class="form-control" value= "{{$pengembalian->denda}}" name= "denda" id="denda" placeholder="Denda (Rp)">
         @error('denda')
             <div style="color:red">
                 {{$message}}
@@ -80,15 +81,18 @@
       <br><br><br>
       <label for="kodeBuku" class="col-sm-2 col-form-label">Judul Buku</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <select class="form-control" name= "kodeBuku" id="inputKdBuku" aria-label="Default select example">
-            @if ($pinjam == null)
-                @foreach ($pinjam as $b)
+        <select class="form-control" name= "kodeBuku" value= "{{$pengembalian->Bukus->judul}}" id="inputKdBuku" aria-label="Default select example">
+            @if ($pengembalian == null)
+                @foreach ($pengembalian as $b)
                     <option value="{{ $b->kd_buku }}">{{ $b->Bukus->judul }}</option>
                 @endforeach
             @else
-                @foreach ($pinjam as $b)
-                    <option value="{{ $b->kd_buku }}">{{ $b->Bukus->judul }}</option>
-                @endforeach
+                @foreach ($buku as $b)
+                <option value="{{ $b->kd_buku }}"
+                    @if ($b->kd_buku == $pengembalian->Bukus->kd_buku)
+                        selected
+                    @endif>{{ $b->judul }}</option>
+            @endforeach
             @endif
 
         </select>
@@ -101,7 +105,7 @@
 
       <br><br><br>
 
-      <input type="hidden" name="value" id="output" value="{{$pinjam[0]->kd_student}}">
+      <input type="hidden" name="value" id="output" value="{{$student[0]->kd_student}}">
 
     </div>
     <input type="submit" value="Submit" class="btn btn-primary btn-md">
