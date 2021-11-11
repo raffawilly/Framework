@@ -25,7 +25,9 @@ Route::prefix('welcome')->group(function () {
     Route::post('/login_student',[User::class,'cek_login_student']);
 });
 
-Route::prefix('admin')->group(function () {
+Route::get('/logout',[User::class,'logout']);
+
+Route::prefix('admin')->middleware(['CekRoleAdmin'])->group(function () {
     Route::get('/',[adminController::class,'index'])->name('admin_index');
     Route::prefix('/book')->group(function () {
         Route::get('/insert',[adminController::class,'book_index'])->name('book_insert');

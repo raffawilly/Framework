@@ -12,6 +12,7 @@ use App\Models\student;
 use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class adminController extends Controller
@@ -290,7 +291,7 @@ class adminController extends Controller
 
             $result = student::create([
                 'username'       => $req->Username,
-                'password' => $req->Password,
+                'password' => Hash::make($req->Password),
                 'nm_student' => $req->nm_student,
                 'nisn' => $req->nisn,
                 'kelamin'   => $req->kelamin,
@@ -356,7 +357,7 @@ class adminController extends Controller
     {
      $student = student::find($req->kd_student); // dapatkan buku ke 99
         $student->username = $req->Username;
-        $student->password = $req->Password;
+        $student->password = Hash::make($req->Password);
         $student->nm_student = $req->nm_student;
         $student->nisn = $req->nisn;
         $student->kelamin = $req->kelamin;
