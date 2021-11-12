@@ -35,7 +35,7 @@
                   @if ($peminjaman->status == 0)
                     <td>Pinjam</td>
                   @else
-                    <td>Denda</td>
+                    <td>Kembali</td>
                   @endif
                   <td>{{$peminjaman->Bukus->judul}}</td>
                   <td>{{$peminjaman->Admins->nm_admin }}</td>

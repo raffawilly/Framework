@@ -17,11 +17,11 @@
           <th>No.</th>
           <th>No. Pinjam</th>
           <th>Tanggal Kembali</th>
-          <th>Nama Student</th>
+          {{-- <th>Nama Student</th>
           <th>Denda</th>
-          <th>Buku Yang Dikembalikan</th>
+          <th>Buku Yang Dikembalikan</th> --}}
           <th>Nama Pengurus</th>
-          <th>Action</th>
+          {{-- <th>Action</th> --}}
       </thead>
       <tbody>
           @foreach ($data as $pengembalian)
@@ -29,13 +29,13 @@
                   <td>{{$loop->index+1}}</td>
                   <td>{{$pengembalian->no_pinjam }}</td>
                   <td>{{$pengembalian->tgl_kembali }}</td>
-                  <td>{{$pengembalian->Students->nm_student }}</td>
-                  <td>{{$pengembalian->denda}}</td>
-                  <td>{{$pengembalian->Bukus->judul}}</td>
+                  {{-- <td>{{$pengembalian->Students->nm_student }}</td> --}}
+                  {{-- <td>{{$pengembalian->denda}}</td> --}}
+                  {{-- <td>{{$pengembalian->Bukus->judul}}</td> --}}
                   <td>{{$pengembalian->Admins->nm_admin }}</td>
-                  <td>
+                  {{-- <td>
                     <a href="{{ url("admin/ubah_pengembalian/$pengembalian->no_pinjam") }}" class="btn btn-warning">Ubah</a>
-                  </td>
+                  </td> --}}
 
               </tr>
           @endforeach

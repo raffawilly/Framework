@@ -73,7 +73,7 @@
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <select class="form-control" name= "status" id="status" aria-label="Default select example">
                 <option value="0">Pinjam</option>
-                <option value="1">Denda</option>
+                <option value="1">Kembali</option>
         </select>
         @error('status')
             <div style="color:red">

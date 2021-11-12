@@ -77,10 +77,10 @@
         <select class="form-control" name= "status" id="status" aria-label="Default select example">
             @if ($peminjaman->status == 0)
                 <option value="0"  selected>Pinjam</option>
-                <option value="1" >Denda</option>
+                <option value="1" >Kembali</option>
             @else
                 <option value="0" >Pinjam</option>
-                <option value="1" selected>Denda</option>
+                <option value="1" selected>Kembali</option>
             @endif
 
         </select>

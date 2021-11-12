@@ -12,6 +12,7 @@ use App\Models\student;
 use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -508,40 +509,49 @@ class adminController extends Controller
 
     }
 
+    public function pengembalian_get(Request $req)
+    {
+        $pengembalian = Peminjaman::find($req->id);
+        // dd($pengembalian);
+            if ($pengembalian != null) {
+                $pengembalian->status = 1;
+
+                $result = $pengembalian->save(); // untuk ngesave ke database
+                $result = Pengembalian::create([
+                    'no_pinjam'       => $pengembalian->no_pinjam,
+                    'tgl_kembali' => date("Y-m-d"),
+                    'kd_admin'     => Auth::guard('admin_guard')->user()->kd_admin
+                ]);
+                if($result){
+                    return redirect()->route('pengembalian_list')->with('message', 'Berhasil Dikembalikan');
+                }else {
+                    return redirect()->route('pengembalian_list')->with('message', 'Gagal Dikembalikan');
+                }
+            }
+            $pengembalian = Pengembalian::all();
+            $pengembalians = [];
+            $pengembalians['data'] = $pengembalian;
+            return view("admin.pengembalian_list",$pengembalians);
+
+
+    }
+
     public function pengembalian_post(Request $req)
     {
-        $req->validate(
-            [
-                'no_pinjam'=> "required",
-                'tgl_pengembalian'    => "required",
-                'kd_student'    => "required",
-                'denda'    => "required",
-                'kodeBuku'        => "required"
-            ],
-            [
-                'no_pinjam.required' => 'Harus mengisi Nomer Peminjaman',
-                'tgl_pengembalian.required' => 'Harus memilih Tanggal Pengembalian',
-                'kd_student.required' => 'Harus mengisi Kode Siswa',
-                'denda.required' => 'Harus mengisi Denda',
-                'kodeBuku.required' => 'Harus mengisi kode Buku'
-            ],
-        );
+        $pengembalian = Peminjaman::find($req->id); // dapatkan id dari url untuk mencari no_pinjam
+        // dd("$pengembalian");
+        $pengembalian->status = "1";
 
+        $result = $pengembalian->save(); // untuk ngesave ke database
         $result = Pengembalian::create([
-            'no_pinjam'       => $req->no_pinjam,
-            'tgl_kembali' => $req->tgl_pengembalian,
-            'denda' => $req->denda,
-            'kd_student' => $req ->kd_student,
-            'kd_admin'     => '1',
-            'kd_buku'  => $req->kodeBuku
+            'no_pinjam'       => $pengembalian->no_pinjam,
+            'tgl_kembali' => date("Y-m-d"),
+            'kd_admin'     => Auth::guard('admin_guard')->user()->kd_admin
         ]);
-
-        $CariKdKembali = Pengembalian::max('no_pinjam');
-
-        if($result ){
-            return redirect()->route('pengembalian_index')->with('message', 'Insert Success');
+        if($result){
+            return redirect()->route('pengembalian_list')->with('message', 'Update Success');
         }else {
-            return redirect()->route('pengembalian_index')->with('message', 'Insert Failed');
+            return redirect()->route('pengembalian_list')->with('message', 'Update Failed');
         }
     }
 
