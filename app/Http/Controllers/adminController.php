@@ -416,7 +416,6 @@ class adminController extends Controller
             'kd_admin'     => '1',
             'kd_buku'  => $req->kodeBuku
         ]);
-
         $CariKdPinjam = Peminjaman::max('no_pinjam');
 
         $result2 = Peminjaman_item::create([
@@ -425,6 +424,11 @@ class adminController extends Controller
             'kd_buku' => $req->kodeBuku,
             'jumlah' => '1'
         ]);
+
+        //MENGURANGI STOK BUKU DI DB
+        $buku=Buku::find($req->kodeBuku);
+        $buku->jumlah=$buku->jumlah - 1;
+        $result=$buku->save();
         if($result && $result2 ){
             return redirect()->route('peminjaman_index')->with('message', 'Insert Success');
         }else {
@@ -522,6 +526,8 @@ class adminController extends Controller
                     'tgl_kembali' => date("Y-m-d"),
                     'kd_admin'     => Auth::guard('admin_guard')->user()->kd_admin
                 ]);
+
+
                 if($result){
                     return redirect()->route('pengembalian_list')->with('message', 'Berhasil Dikembalikan');
                 }else {
@@ -548,6 +554,7 @@ class adminController extends Controller
             'tgl_kembali' => date("Y-m-d"),
             'kd_admin'     => Auth::guard('admin_guard')->user()->kd_admin
         ]);
+
         if($result){
             return redirect()->route('pengembalian_list')->with('message', 'Update Success');
         }else {

@@ -19,7 +19,7 @@
 
       <label for="tgl_peminjaman" class="col-sm-2 col-form-label">Tanggal Peminjaman</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="date" class="form-control" name= "tgl_peminjaman" id="tgl_peminjaman" placeholder="Tanggal peminjaman">
+        <input type="date" class="form-control" name= "tgl_peminjaman" id="tgl_peminjaman" placeholder="Tanggal peminjaman" value="<?php echo date('Y-m-d'); ?>">
         @error('tgl_peminjaman')
             <div style="color:red">
                 {{$message}}
