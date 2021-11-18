@@ -88,6 +88,6 @@ Route::prefix('admin')->middleware(['CekRoleAdmin'])->group(function () {
 
 });
 
-Route::prefix('student')->group(function () {
+Route::prefix('student')->middleware(['CekRoleStudent'])->group(function () {
     Route::get('/',[studentController::class,'index'])->name('student_index');
 });

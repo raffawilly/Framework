@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CekRole
+class CekRoleStudent
 {
     /**
      * Handle an incoming request.
@@ -17,7 +17,7 @@ class CekRole
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::guard('admin_guard')->check()){
+        if(Auth::guard('student_guard')->check()){
             return $next($request);
         }else{
             abort(403);
