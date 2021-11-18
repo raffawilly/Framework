@@ -4,7 +4,7 @@
 <div class="m-5">
     <h1>Peminjaman</h1>
     <br>
-    {{-- Message --}}
+    {{-- Message success --}}
     @if ($message = Session::get('message'))
     <div class="alert alert-primary d-flex align-items-center" role="alert">
         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
@@ -13,6 +13,17 @@
         </div>
       </div>
   @endif
+
+  {{-- Message failed --}}
+  @if ($message = Session::get('failed'))
+  <div class="alert alert-danger d-flex align-items-center" role="alert">
+      <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Warning:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+      <div>
+          <strong>{{ $message }}</strong>
+      </div>
+    </div>
+@endif
+
 <form action="" method="POST" enctype="multipart/form-data" >
     @csrf
     <div class="form-group row">

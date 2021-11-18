@@ -407,33 +407,43 @@ class adminController extends Controller
             ],
         );
 
-        $result = Peminjaman::create([
-            'tgl_pinjam'       => $req->tgl_peminjaman,
-            'kd_student' => $req->kd_student,
-            'keterangan' => $req->keterangan,
-            'lama_pinjam' => $req->lamaPinjam,
-            'status'   => $req->status,
-            'kd_admin'     => '1',
-            'kd_buku'  => $req->kodeBuku
-        ]);
-        $CariKdPinjam = Peminjaman::max('no_pinjam');
-
-        $result2 = Peminjaman_item::create([
-            'kd_student' => $req->kd_student,
-            'no_pinjam'  => $CariKdPinjam,
-            'kd_buku' => $req->kodeBuku,
-            'jumlah' => '1'
-        ]);
-
-        //MENGURANGI STOK BUKU DI DB
         $buku=Buku::find($req->kodeBuku);
-        $buku->jumlah=$buku->jumlah - 1;
-        $result=$buku->save();
-        if($result && $result2 ){
-            return redirect()->route('peminjaman_index')->with('message', 'Insert Success');
-        }else {
-            return redirect()->route('peminjaman_index')->with('message', 'Insert Failed');
+        if($buku->jumlah < 0){
+
+            $result = Peminjaman::create([
+                'tgl_pinjam'       => $req->tgl_peminjaman,
+                'kd_student' => $req->kd_student,
+                'keterangan' => $req->keterangan,
+                'lama_pinjam' => $req->lamaPinjam,
+                'status'   => $req->status,
+                'kd_admin'     => '1',
+                'kd_buku'  => $req->kodeBuku
+            ]);
+            $CariKdPinjam = Peminjaman::max('no_pinjam');
+
+            $result2 = Peminjaman_item::create([
+                'kd_student' => $req->kd_student,
+                'no_pinjam'  => $CariKdPinjam,
+                'kd_buku' => $req->kodeBuku,
+                'jumlah' => '1'
+            ]);
+
+            //MENGURANGI STOK BUKU DI DB
+            $buku->jumlah=$buku->jumlah - 1;
+            $result=$buku->save();
+
+            if($result && $result2 ){
+                return redirect()->route('peminjaman_index')->with('message', 'Insert Success');
+            }else {
+                return redirect()->route('peminjaman_index')->with('failed', 'Insert Failed');
+            }
         }
+        else{
+            return redirect()->route('peminjaman_index')->with('failed', 'Stock Empty');
+        }
+
+
+
     }
 
     public function peminjaman_list()
@@ -526,6 +536,10 @@ class adminController extends Controller
                     'tgl_kembali' => date("Y-m-d"),
                     'kd_admin'     => Auth::guard('admin_guard')->user()->kd_admin
                 ]);
+                 //MENGURANGI STOK BUKU DI DB
+                $buku=Buku::find($pengembalian->kd_buku);
+                $buku->jumlah=$buku->jumlah + 1;
+                $buku->save();
 
 
                 if($result){
