@@ -26,7 +26,7 @@
 
           <label for="password" class="col-sm-2 col-form-label">Password</label>
           <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-            <input type="password" class="form-control" name= "Password" id="password" placeholder="Password..." value="{{$student->password}}">
+            <input type="password" class="form-control" name= "Password" id="password" placeholder="Password..." value="{{$student->password}}" readonly>
             @error('Password')
                 <div style="color:red">
                     {{$message}}

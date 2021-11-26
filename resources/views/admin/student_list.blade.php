@@ -24,7 +24,6 @@
     <thead>
         <th>No.</th>
         <th>Username</th>
-        <th>Password</th>
         <th>Nama</th>
         <th>NISN</th>
         <th>Jenis Kelamin</th>
@@ -41,7 +40,6 @@
             <tr>
                 <td>{{$loop->index+1}}</td>
                 <td>{{$student->username }}</td>
-                <td>{{$student->password }}</td>
                 <td>{{$student->nm_student }}</td>
                 <td>{{$student->nisn}}</td>
                 <td>{{$student->kelamin}}</td>

@@ -358,7 +358,6 @@ class adminController extends Controller
     {
      $student = student::find($req->kd_student); // dapatkan buku ke 99
         $student->username = $req->Username;
-        $student->password = Hash::make($req->Password);
         $student->nm_student = $req->nm_student;
         $student->nisn = $req->nisn;
         $student->kelamin = $req->kelamin;
