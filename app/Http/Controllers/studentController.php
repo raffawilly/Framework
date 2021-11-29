@@ -21,4 +21,14 @@ class studentController extends Controller
         $data['bukuDikembalikan']=$bukuDikembalikan;
         return view('student.index',$data);
     }
+
+    public function pinjamlist(Request $request)
+    {
+        return view('student.pinjamlist');
+    }
+
+    public function kembalilist(Request $request)
+    {
+        return view('student.kembalilist');
+    }
 }

@@ -90,4 +90,6 @@ Route::prefix('admin')->middleware(['CekRoleAdmin'])->group(function () {
 
 Route::prefix('student')->middleware(['CekRoleStudent'])->group(function () {
     Route::get('/',[studentController::class,'index'])->name('student_index');
+    Route::get('/pinjamlist',[studentController::class,'pinjamlist']);
+    Route::get('/kembalilist',[studentController::class,'kembalilist']);
 });
