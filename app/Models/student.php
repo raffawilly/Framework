@@ -26,6 +26,7 @@ class student extends Authenticatable
         'tanggal_lahir',
         'alamat',
         'no_telepon',
+        'email',
         'foto'
     ];
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\EmailController;
 use App\Http\Controllers\studentController;
 use App\Http\Controllers\User;
 use Illuminate\Routing\RouteGroup;
@@ -53,6 +54,12 @@ Route::prefix('admin')->middleware(['CekRoleAdmin'])->group(function () {
 
 
 
+
+    });
+
+    Route::prefix('email')->group(function () {
+        Route::get('preview', [EmailController::class,'preview']);
+        Route::get('kirim', [EmailController::class,'kirim']);
     });
 
     Route::prefix('student')-> group(function(){
@@ -93,3 +100,5 @@ Route::prefix('student')->middleware(['CekRoleStudent'])->group(function () {
     Route::get('/pinjamlist',[studentController::class,'pinjamlist']);
     Route::get('/kembalilist',[studentController::class,'kembalilist']);
 });
+
+

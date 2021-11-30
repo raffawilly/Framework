@@ -26,6 +26,7 @@ class adminFactory extends Factory
             'nm_admin' => $this->faker->name(),
             'username' => $this->faker->userName(),
             'password' => Hash::make('123'),
+            'email' => $this->faker->email(),
         ];
     }
 }

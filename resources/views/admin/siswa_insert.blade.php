@@ -133,6 +133,17 @@
       </div>
 
       <br><br><br>
+      <label for="email" class="col-sm-2 col-form-label">Email</label>
+      <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
+        <input type="email" class="form-control" name= "email" id="email" placeholder="Email...">
+        @error('email')
+            <div style="color:red">
+                {{$message}}
+            </div>
+        @enderror
+      </div>
+
+      <br><br><br>
       <label for="inputFoto" class="col-sm-2 col-form-label">Foto</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
         <input type="file" class="form-control" name= "Foto" id="inputFoto">

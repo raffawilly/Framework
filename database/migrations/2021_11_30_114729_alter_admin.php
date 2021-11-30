@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AlterStudent extends Migration
+class AlterAdmin extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,7 @@ class AlterStudent extends Migration
      */
     public function up()
     {
-        Schema::table('student', function (Blueprint $table) {
-            $table->renameColumn('no_telpon','no_telepon');
+        Schema::table('admin', function (Blueprint $table) {
             $table->string('email', 255);
         });
     }
@@ -26,8 +25,7 @@ class AlterStudent extends Migration
      */
     public function down()
     {
-        Schema::table('student', function (Blueprint $table) {
-            $table->renameColumn('no_telepon','no_telpon');
+        Schema::table('admin', function (Blueprint $table) {
             $table->dropColumn('email');
         });
     }

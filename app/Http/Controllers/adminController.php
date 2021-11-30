@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\PinjamMail;
 use App\Models\Buku;
 use App\Models\Kategori;
 use App\Models\Peminjaman;
@@ -14,6 +15,7 @@ use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class adminController extends Controller
@@ -301,6 +303,7 @@ class adminController extends Controller
                 'tanggal_lahir'   => $req->tanggalLahir,
                 'alamat' => $req->Alamat,
                 'no_telepon' => $req->nomorTelpon,
+                'email' => $req->email,
                 'foto'      => $imageName
             ]);
 
@@ -407,7 +410,7 @@ class adminController extends Controller
         );
 
         $buku=Buku::find($req->kodeBuku);
-        if($buku->jumlah < 0){
+        if($buku->jumlah > 0){
 
             $result = Peminjaman::create([
                 'tgl_pinjam'       => $req->tgl_peminjaman,
@@ -415,7 +418,7 @@ class adminController extends Controller
                 'keterangan' => $req->keterangan,
                 'lama_pinjam' => $req->lamaPinjam,
                 'status'   => $req->status,
-                'kd_admin'     => '1',
+                'kd_admin'     => Auth::guard('admin_guard')->user()->kd_admin,
                 'kd_buku'  => $req->kodeBuku
             ]);
             $CariKdPinjam = Peminjaman::max('no_pinjam');
@@ -432,7 +435,11 @@ class adminController extends Controller
             $result=$buku->save();
 
             if($result && $result2 ){
+                $listBuku = Peminjaman::where('kd_student','=',$req->kd_student)->get();
+                $student = student::find($req->kd_student);
+                Mail::to($student->email)->send(new PinjamMail($student, $listBuku));
                 return redirect()->route('peminjaman_index')->with('message', 'Insert Success');
+
             }else {
                 return redirect()->route('peminjaman_index')->with('failed', 'Insert Failed');
             }
