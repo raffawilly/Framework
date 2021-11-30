@@ -13,13 +13,19 @@
                 <tr>
                     <th>Nama Buku</th>
                     <th>Pengarang</th>
+                    <th>Tanggal Pinjam</th>
+                    <th>Keterangan</th>
+                    <th>Lama Pinjam</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($listBuku as $listBuku)
+                @foreach ($listBuku as $Buku)
                 <tr>
-                    <td>{{ $listBuku->Bukus->judul }}</td>
-                    <td>{{ $listBuku->Bukus->pengarang }}</td>
+                    <td>{{ $Buku->Bukus->judul }}</td>
+                    <td>{{ $Buku->Bukus->pengarang }}</td>
+                    <td>{{ $Buku->tgl_pinjam}}</td>
+                    <td>{{ $Buku->keterangan}}</td>
+                    <td>{{ $Buku->lama_pinjam}} Hari</td>
                 </tr>
                 @endforeach
             </tbody>
