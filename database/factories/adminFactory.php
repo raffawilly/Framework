@@ -22,11 +22,12 @@ class adminFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->firstName();
         return [
-            'nm_admin' => $this->faker->name(),
+            'nm_admin' => $name,
             'username' => $this->faker->userName(),
             'password' => Hash::make('123'),
-            'email' => $this->faker->email(),
+            'email' => $name.'@gmail.com',
         ];
     }
 }
