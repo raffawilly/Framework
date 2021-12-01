@@ -54,7 +54,6 @@
                 <td>{{$buku->th_terbit}}</td>
                 <td><img class="img-fluid" style="width: 100px" src="{{ asset('/img_buku/'.$buku->gambar) }}" alt=""></td>
                 <td>
-
                     <a href="{{ url("admin/book/ubah_buku/$buku->kd_buku") }}" class="btn btn-warning">Ubah</a>
                     <a href="{{ url("admin/book/hapus_buku/$buku->kd_buku") }}" class="btn btn-danger">Hapus</a>
                 </td>
