@@ -10,6 +10,7 @@ use App\Models\Peminjaman_item;
 use App\Models\Penerbit;
 use App\Models\Pengembalian;
 use App\Models\student;
+use App\Notifications\NotifBukuPinjam;
 use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Http\File as HttpFile;
 use Illuminate\Http\Request;
@@ -437,7 +438,9 @@ class adminController extends Controller
             if($result && $result2 ){
                 $listBuku = Peminjaman::where('kd_student','=',$req->kd_student)->get();
                 $student = student::find($req->kd_student);
-                Mail::to($student->email)->send(new PinjamMail($student, $listBuku));
+                $admin = Auth::guard('admin_guard')->user();
+                // Mail::to($admin->email)->send(new PinjamMail($admin->nm_admin, $listBuku));
+                $student->notify(new NotifBukuPinjam($student, $listBuku));
                 return redirect()->route('peminjaman_index')->with('message', 'Insert Success');
 
             }else {

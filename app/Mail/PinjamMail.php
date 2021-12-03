@@ -33,7 +33,8 @@ class PinjamMail extends Mailable
     public function build()
     {
         $tanggal=Carbon::now()->format('d F Y');
-        return $this->subject('PROJECT')
+        return $this->subject('Pinjam Buku')
+                    ->from('perpustakaan@sekolah.ac.id','Perpustakaan')
                     ->view('emails.pinjam')
                     ->with(
                         [

@@ -70,7 +70,36 @@
                 </li>
 
 
+            <!-- Nav Item - Alerts -->
+            <li class="nav-item dropdown no-arrow mx-1">
+                <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell fa-fw"></i>
+                    <!-- Counter - Alerts -->
+                    <span class="badge badge-danger badge-counter">
+                        {{-- @foreach ($daftarNotif as $item)
+                            {{
+                                // count($item)
+                            }}
+                        @endforeach --}}
+                    </span>
+                </a>
+                <!-- Dropdown - Alerts -->
+                <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                    aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">
+                        Notification
+                    </h6>
+                    @foreach ($daftarNotif as $item)
+                    <a class="dropdown-item d-flex align-items-center" href="#">
+                        <div>
+                            {{ $item }}
+                        </div>
+                    </a>
+                    @endforeach
 
+                </div>
+            </li>
 
                 <div class="topbar-divider d-none d-sm-block"></div>
 
