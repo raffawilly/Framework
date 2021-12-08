@@ -81,10 +81,15 @@ Route::prefix('admin')->middleware(['CekRoleAdmin'])->group(function () {
     Route::post('/peminjaman',[adminController::class,'peminjaman_post']);
 
     Route::get('/peminjaman/list',[adminController::class,'peminjaman_list'])->name('peminjaman_list');
+    Route::post('/peminjaman/list',[adminController::class,'peminjaman_list_search']);
+
     Route::get('/ubah_peminjaman/{id}',[adminController::class,'ubah_peminjaman']);
     Route::Post('/ubah_peminjaman/{id}',[adminController::class,'do_ubah_peminjaman']);
 
     Route::get('/pengembalian',[adminController::class,'pengembalian_index'])->name('pengembalian_index');
+    Route::post('/pengembalian',[adminController::class,'pengembalian_index_search']);
+
+    
     Route::get('/pengembalian/{id}',[adminController::class,'pengembalian_get']);
 
     Route::post('/pengembalian/{id}',[adminController::class,'pengembalian_post'])->name('pengembalian_post');

@@ -463,6 +463,15 @@ class adminController extends Controller
         return view("admin.peminjaman_list",$peminjamans);
     }
 
+    public function peminjaman_list_search(Request $req)
+    {
+        $peminjaman = Peminjaman::join('student','student.kd_student','=','peminjaman.kd_student')
+                    ->where('nm_student','like','%' . $req->search . '%')->get();
+        $peminjamans=[];
+        $peminjamans['data']=$peminjaman;
+        return view('admin.peminjaman_list', $peminjamans);
+    }
+
     public function ubah_peminjaman(Request $req)
     {
         $peminjaman = Peminjaman::find($req->id);
@@ -530,6 +539,15 @@ class adminController extends Controller
 
         return view("admin.pengembalian", $data);
 
+    }
+
+    public function pengembalian_index_search(Request $req)
+    {
+        $pinjam = Peminjaman::join('student','student.kd_student','=','peminjaman.kd_student')
+        ->where('nm_student','like','%' . $req->search . '%')->get();
+        $data=[];
+        $data['pinjam']=$pinjam;
+        return view('admin.pengembalian', $data);
     }
 
     public function pengembalian_get(Request $req)

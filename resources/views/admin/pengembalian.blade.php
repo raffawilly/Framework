@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="m-5">
-    <h1>List Peminjaman</h1>
+    <h1>Input Pengembalian</h1>
   {{-- Message --}}
   @if ($message = Session::get('message'))
   <div class="alert alert-primary d-flex align-items-center" role="alert">
@@ -12,6 +12,23 @@
       </div>
     </div>
   @endif
+   <!-- Topbar Search -->
+   <form
+   class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search" method="POST" action="">
+   @csrf
+   <div class="input-group">
+       <input type="text" class="form-control bg-light border-0 small" placeholder="Cari History Pengembalian..."
+           aria-label="Search" name="search" aria-describedby="basic-addon2">
+       <div class="input-group-append">
+           <button class="btn btn-primary" type="submit">
+               <i class="fas fa-search fa-sm"></i>
+           </button>
+       </div>
+   </div>
+   <!-- Topbar Search -->
+ 
+
+
     <table class="table table-striped table-hover">
       <thead>
           <th>No.</th>

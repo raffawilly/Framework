@@ -67,7 +67,11 @@
 
       <label for="kelamin" class="col-sm-2 col-form-label">Kelamin</label>
       <div class="col-sm-10 col-md-10 col-lg-10 col-xl-10">
-        <input type="text" class="form-control" name= "kelamin" id="kelamin" placeholder="Kelamin...">
+
+        <select name="kelamin" class="form-control">
+            <option value="laki-laki">Laki - Laki</option>
+            <option value="perempuan">Perempuan</option>
+        </select>
         @error('kelamin')
             <div style="color:red">
                     {{$message}}

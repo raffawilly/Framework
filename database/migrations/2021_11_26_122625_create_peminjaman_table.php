@@ -17,7 +17,7 @@ class CreatePeminjamanTable extends Migration
             $table->id('no_pinjam');
             $table->date('tgl_pinjam');
             $table->integer('kd_student');
-            $table->string('keterangan',255);
+            $table->string('keterangan',255)->nullable();
             $table->integer('lama_pinjam');
             $table->integer('status');
             $table->integer('kd_admin');

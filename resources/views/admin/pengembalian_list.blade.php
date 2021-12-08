@@ -12,6 +12,10 @@
       </div>
     </div>
   @endif
+
+  
+
+
     <table class="table table-striped table-hover">
       <thead>
           <th>No.</th>
