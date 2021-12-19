@@ -38,7 +38,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <h6 class="collapse-header">Master Buku:</h6>
                 <a class="collapse-item" href="{{ url('student/pinjamlist') }}">Daftar Buku Dipinjam</a>
-                <a class="collapse-item" href="{{ url('student/kembalilist') }}">Daftar Buku Dikembalikan</a>
+                <a class="collapse-item" href="{{ url('student/kembalilist') }}">History Peminjaman</a>
             </div>
         </div>
     </li>
